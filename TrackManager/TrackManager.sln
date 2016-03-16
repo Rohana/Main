@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A1A605FC-73EF-4EF2-A269-AB59A1910F2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C3B9BEC2-6A19-4265-9FCA-7FD60ED8D2CD}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TrackManager", "src\TrackManager\TrackManager.xproj", "{D0A9929E-F82A-461D-B77E-2BCD78A053A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{AEBE4862-F6BB-4BBA-B5A8-8087F76F28EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{12D20AC1-D868-443A-9B3F-92A619F64251}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{C04EAA1A-ED67-4620-AB62-D5516F9028FF}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\TrackManager.json = PublishScripts\Templates\TrackManager.json
+		PublishScripts\Templates\TrackManager.param.dev.json = PublishScripts\Templates\TrackManager.param.dev.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0A9929E-F82A-461D-B77E-2BCD78A053A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0A9929E-F82A-461D-B77E-2BCD78A053A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0A9929E-F82A-461D-B77E-2BCD78A053A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0A9929E-F82A-461D-B77E-2BCD78A053A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0A9929E-F82A-461D-B77E-2BCD78A053A4} = {A1A605FC-73EF-4EF2-A269-AB59A1910F2D}
+		{12D20AC1-D868-443A-9B3F-92A619F64251} = {AEBE4862-F6BB-4BBA-B5A8-8087F76F28EA}
+		{C04EAA1A-ED67-4620-AB62-D5516F9028FF} = {AEBE4862-F6BB-4BBA-B5A8-8087F76F28EA}
+	EndGlobalSection
+EndGlobal

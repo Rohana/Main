@@ -1,0 +1,29 @@
+{
+  "siteName": {
+    "value": "MedicalForms"
+  },
+  "hostingPlanName": {
+    "value": "MedicalFormsApp"
+  },
+  "siteLocation": {
+    "value": "East US"
+  },
+  "sku": {
+    "value": "Free"
+  },
+  "workerSize": {
+    "value": "0"
+  },
+  "siteMode": {
+    "value": "Limited"
+  },
+  "computeMode": {
+    "value": "0"
+  },
+  "subscriptionId": {
+    "value": "a8fb3b7f-dd76-4022-9dee-72a193ad31c7"
+  },
+  "resourceGroup": {
+    "value": "FreeAzure"
+  }
+}
