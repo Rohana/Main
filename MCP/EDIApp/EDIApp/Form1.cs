@@ -106,22 +106,38 @@ namespace EDIApp
 
         private void Claims()
         {
+            // Test the x12Xml to X12 conversion
+
+            var dir = Directory.GetCurrentDirectory();
+            var stream = new StreamReader(@"..\..\..\..\TestData\sampleClaimTemp.xml");
+            var x12XmlText = stream.ReadToEnd();
+
+            X12Parser parser = new X12Parser();
+            var x12 = parser.TransformToX12(x12XmlText);
+
+            // now convert it back to X12 
+
+            var inter = new Interchange(DateTime.Now, 1, true)
+            {
+                InterchangeReceiverId = "RECEIVERS"
+            };
+            var group = inter.AddFunctionGroup("HC", DateTime.Now, 999999);
+            var transaction = group.AddTransaction("837", "0034");
+            var bhtSegment = transaction.AddSegment("BHT");
+        
+            var xx=inter.SerializeToX12(true);
+
             var claim = new Claim();
             var claimDocument = new ClaimDocument();
             claimDocument.Claims = new List<Claim>() { claim };
 
             claim.Subscriber = new ClaimMember() { Name = new OopFactory.X12.Hipaa.Common.EntityName() { FirstName = "RO" } };
 
-        TransformClaimDocumentToFoXml(ClaimDocument document)
+       // TransformClaimDocumentToFoXml(ClaimDocument document)
 
             var xml = claim.Serialize();
 
-            var dir = Directory.GetCurrentDirectory();
-            var stream = new StreamReader(@"..\..\..\..\TestData\sampleClaim.xml");
-            var xmlText = stream.ReadToEnd();
-
-            X12Parser parser = new X12Parser();
-            var x12 = parser.TransformToX12(xmlText);
+            
 
 
             var c= new HCFA1500Claim();
