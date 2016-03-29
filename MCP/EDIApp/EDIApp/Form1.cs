@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using OopFactory.X12.Parsing.Model;
 using OopFactory.X12.Hipaa.Claims;
 using OopFactory.X12.Parsing;
+using OopFactory.X12.Hipaa.Claims.Forms.Professional;
 using System.IO;
 
 namespace EDIApp
@@ -23,8 +24,39 @@ namespace EDIApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Eligibility();
         }
+        private void Eligibility()
+        {
+            var message = new Interchange(Convert.ToDateTime("01/01/03"), 000905, false)
+            {
+                InterchangeSenderIdQualifier = "ZZ",
+                InterchangeSenderId = "SUBMITTERS.ID",
+                InterchangeReceiverIdQualifier = "ZZ",
+                InterchangeReceiverId = "RECEIVERS.ID",
+                SecurityInfo = "SECRET",
+                SecurityInfoQualifier = "01",
+            };
+            message.SetElement(12, "00501");
+            message.SetElement(10, "1253");
+            message.SetElement(11, "^");
+
+
+
+            var group = message.AddFunctionGroup("HC", DateTime.Now, 1, "005010X222");
+            group.ApplicationSendersCode = "SENDER CODE";
+            group.ApplicationReceiversCode = "RECEIVER CODE";
+            group.Date = Convert.ToDateTime("12/31/1999");
+            group.ControlNumber = 1;
+            group.SetElement(5, "0802");
+
+
+            var transaction = group.AddTransaction("837", "0021");
+            transaction.SetElement(2, "0021");
+            transaction.SetElement(3, "005010X222");
+            var bb = message.SerializeToX12(true);
+        }
+            
 
         public void EdiMessage()
         {
@@ -79,6 +111,9 @@ namespace EDIApp
             claimDocument.Claims = new List<Claim>() { claim };
 
             claim.Subscriber = new ClaimMember() { Name = new OopFactory.X12.Hipaa.Common.EntityName() { FirstName = "RO" } };
+
+        TransformClaimDocumentToFoXml(ClaimDocument document)
+
             var xml = claim.Serialize();
 
             var dir = Directory.GetCurrentDirectory();
@@ -88,15 +123,19 @@ namespace EDIApp
             X12Parser parser = new X12Parser();
             var x12 = parser.TransformToX12(xmlText);
 
-        /*   Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("OopFactory.X12.Hipaa.Tests.Unit.Claims.TestData.SKInstitutionalClaim5010.xml");
 
-            TextReader tr = new StreamReader(stream);
-            string xml2 = tr.ReadToEnd();
+            var c= new HCFA1500Claim();
+            var cz = c.Serialize();
+            var cx12 = parser.TransformToX12(cz);
+            /*   Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("OopFactory.X12.Hipaa.Tests.Unit.Claims.TestData.SKInstitutionalClaim5010.xml");
 
-            //Now convert the XML to X12
-            X12Parser parser = new X12Parser();
-            string myX12 = parser.TransformToX12(xml2);
-            */
+                TextReader tr = new StreamReader(stream);
+                string xml2 = tr.ReadToEnd();
+
+                //Now convert the XML to X12
+                X12Parser parser = new X12Parser();
+                string myX12 = parser.TransformToX12(xml2);
+                */
         }
     }
 }
